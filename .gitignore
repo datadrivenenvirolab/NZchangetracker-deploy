@@ -1,0 +1,10 @@
+# Cached ZeroTracker export. panel.rds is committed so a fresh deployment
+# starts with data already loaded; anything else written here is not.
+cache/*
+!cache/panel.rds
+
+# R session files
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj

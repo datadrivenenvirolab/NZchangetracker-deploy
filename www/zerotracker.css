@@ -1,0 +1,70 @@
+/* Net Zero Tracker look: Franz Sans and the zerotracker.net palette */
+
+
+:root {
+  --nzt-grape: #271039;
+  --nzt-ocean: #3b7cc3;
+  --nzt-red: #e23b25;
+  --nzt-brand-gray: #ededed;
+  --nzt-key-gray: #f9f9f9;
+  --nzt-line-gray: #dbdbdb;
+}
+
+body { font-family: "Franz Sans", system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 500; }
+a, h1, h2, h3, p { letter-spacing: .05em; }
+h1, h2, h3, h4, h5, h6 { color: var(--nzt-grape); font-weight: 700; }
+
+/* Header bar: white with the Net Zero Tracker logo, as on zerotracker.net */
+.bslib-page-sidebar > .navbar,
+.bslib-page-sidebar > header,
+.bslib-page-title {
+  background-color: #fff !important;
+  color: var(--nzt-grape) !important;
+}
+.bslib-page-title {
+  padding-block: .6rem !important;
+  border-bottom: 3px solid var(--nzt-red);
+}
+.nzt-brand { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.nzt-logo { height: 44px; width: auto; display: block; }
+.nzt-app-name {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: .05em;
+  color: var(--nzt-grape);
+  padding-left: 1rem;
+  border-left: 2px solid var(--nzt-brand-gray);
+}
+@media (max-width: 575px) {
+  .nzt-logo { height: 32px; }
+  .nzt-app-name { font-size: 1rem; padding-left: 0; border-left: 0; }
+}
+
+/* Sidebar */
+.bslib-sidebar-layout > .sidebar { background-color: var(--nzt-key-gray) !important; border-right: 1px solid var(--nzt-brand-gray); }
+.sidebar h6 { text-transform: uppercase; font-size: .8rem; letter-spacing: .1em; color: var(--nzt-grape); font-weight: 800; }
+
+/* Buttons */
+.btn { font-weight: 700; letter-spacing: .05em; border-radius: .25rem; }
+.btn-primary { background-color: var(--nzt-red); border-color: var(--nzt-red); }
+.btn-primary:hover, .btn-primary:focus { background-color: #b92f1d; border-color: #b92f1d; }
+.btn-ocean { background-color: var(--nzt-ocean); border-color: var(--nzt-ocean); color: #fff; }
+.btn-ocean:hover, .btn-ocean:focus { background-color: #30639c; border-color: #30639c; color: #fff; }
+.btn-outline-grape { color: var(--nzt-grape); border-color: var(--nzt-grape); background: #fff; }
+.btn-outline-grape:hover, .btn-outline-grape:focus { color: #fff; background-color: var(--nzt-grape); }
+
+/* Tabs and cards */
+.nav-underline .nav-link { color: #6b7280; font-weight: 700; letter-spacing: .05em; }
+.nav-underline .nav-link.active, .nav-underline .nav-link:hover { color: var(--nzt-grape); border-bottom-color: var(--nzt-red); }
+.card { border-color: var(--nzt-brand-gray); }
+.card-header { background-color: #fff; color: var(--nzt-grape); font-weight: 700; letter-spacing: .05em; border-bottom-color: var(--nzt-brand-gray); }
+.bslib-value-box .value-box-value { font-weight: 800; }
+.bslib-value-box .value-box-title { font-weight: 600; letter-spacing: .05em; }
+
+/* Form controls */
+.form-check-input:checked { background-color: var(--nzt-ocean); border-color: var(--nzt-ocean); }
+.selectize-input .item { background: var(--nzt-brand-gray) !important; color: var(--nzt-grape) !important; }
+a { color: #3385b7; }
+
+/* Tables */
+.shiny-table table th { color: var(--nzt-grape); font-weight: 700; }

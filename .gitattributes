@@ -1,0 +1,15 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Shell scripts must keep LF endings or they fail on macOS/Linux
+*.sh text eol=lf
+
+# Fonts and the logo are binary
+*.otf binary
+
+# Read line-by-line by the OpenShift build, so it must not gain CRLF
+requirements.txt text eol=lf
+*.yml text eol=lf
+
+# Cached panel
+*.rds binary
