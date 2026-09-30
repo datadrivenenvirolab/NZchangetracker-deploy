@@ -34,8 +34,17 @@ system sans-serif and is otherwise identical.
 
 ## Updating
 
-Push to `main`, then start a new build in OpenShift (**Builds → nzchangetracker →
-Start Build**). The pod redeploys itself when the build finishes.
+Push to `main`. If the GitHub webhook is in place a build starts by itself;
+otherwise start one in OpenShift (**Builds → nzchangetracker → Start Build**) or
+run `oc start-build nzchangetracker`. The pod redeploys itself when the build
+finishes, using the Recreate strategy — the old pod stops before the new one
+starts, which is what fits the project's memory quota, at the cost of a few
+seconds of downtime per deploy.
+
+The webhook payload URL is on the BuildConfig page in the console under
+**Webhooks → GitHub → Copy URL with Secret**. It embeds a trigger secret, so it
+does not belong in this repository. Note that it only works if GitHub can reach
+the cluster API server from the public internet.
 
 To refresh the data, either use *Download latest export* in the running app — the
 pod's copy of the cache lasts until it restarts — or rebuild `cache/panel.rds`
