@@ -14,7 +14,7 @@ system sans-serif and is otherwise identical.
 | `app.R` | The app. Shiny Server serves the repository root, so this must stay at the top level |
 | `R/tracker.R` | The analysis logic; `shiny::runApp()` sources `R/` automatically |
 | `www/zerotracker.css`, `www/logo.svg` | Styling and logo (the `@font-face` rules are stripped) |
-| `cache/panel.rds` | Pre-built panel, ~176 KB, so the app opens with data already loaded and needs no outbound internet |
+| `cache/panel.rds` | Pre-built panel, ~63 KB, trimmed to the analysed scope (companies, 2024 onward) so the app opens with data loaded, needs no outbound internet, and keeps its memory footprint inside the pod limit |
 | `requirements.txt` | R packages the build installs, one per line |
 | `template.yml` | The UNC `R Shiny Server` OpenShift template, imported once per project |
 
@@ -40,3 +40,10 @@ Start Build**). The pod redeploys itself when the build finishes.
 To refresh the data, either use *Download latest export* in the running app — the
 pod's copy of the cache lasts until it restarts — or rebuild `cache/panel.rds`
 from the main repository and push it here.
+
+The committed cache is trimmed to companies from `ANALYSIS_START` on, which is
+exactly what `compute_changes()` keeps after its own filters, so the trim cannot
+change a reported change event; it is verified by re-running the tracker on both
+the full and trimmed panels and comparing. Note that *Download latest export*
+still pulls the whole export and holds it in memory, so it is the one path that
+can still push the pod against its memory limit.
