@@ -170,7 +170,18 @@ server <- function(input, output, session) {
       tryCatch({
         csv <- download_export(dir)
         setProgress(0.7, message = "Reading and normalising…", detail = NULL)
-        normalise_panel(read_export(csv))
+        # Deployment-only: the pod has a hard memory limit, so discard the rows
+        # the analysis cannot reach, as early as they can be identified.
+        # compute_changes() applies these same two filters before it derives
+        # anything, so no reported change event moves.
+        raw <- read_export(csv)
+        if (!all(is.na(ANALYSIS_ACTOR_TYPES))) {
+          # str_squish mirrors normalise_panel(), which has not run yet here, so
+          # the selection matches what compute_changes() would keep exactly.
+          raw <- raw %>% filter(str_to_lower(str_squish(actor_type)) %in%
+                                  str_to_lower(ANALYSIS_ACTOR_TYPES))
+        }
+        normalise_panel(raw) %>% filter(date >= ANALYSIS_START)
       },
       error = function(e) {
         showNotification(paste("Download failed:", conditionMessage(e)),
